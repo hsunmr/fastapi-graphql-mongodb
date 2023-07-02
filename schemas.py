@@ -1,7 +1,7 @@
 import typing
 import strawberry
 from strawberry.types import Info
-from models import Post, PostsResponse
+from models import Post, PostsResponse, CreatePostResponse
 from inputs import AuthorInput
 from resovlers import get_posts,get_post,create_post
 
@@ -22,5 +22,5 @@ class Query:
 @strawberry.type
 class Mutation:
     @strawberry.mutation
-    def post(self, title: str, content: str, author: AuthorInput) -> Post:
+    def post(self, title: str, content: str, author: AuthorInput) -> CreatePostResponse:
         return create_post(title, content, author)

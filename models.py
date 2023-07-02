@@ -27,3 +27,7 @@ class PostsResponse:
     page_meta: PageMeta = strawberry.field(
         description="Metadata to aid in pagination."
     )
+
+@strawberry.type
+class CreatePostResponse:
+    id: str

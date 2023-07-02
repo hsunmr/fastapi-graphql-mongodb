@@ -1,5 +1,5 @@
 from db import db
-from models import Post, Author, PageMeta, PostsResponse
+from models import Post, Author, PageMeta, PostsResponse, CreatePostResponse
 from inputs import AuthorInput
 from bson.objectid import ObjectId
 from heplers import decode_user_cursor, encode_user_cursor
@@ -65,7 +65,7 @@ def get_post(post_id, info):
 
     return result
 
-def create_post(title: str, content: str, author: AuthorInput) -> Post:
+def create_post(title: str, content: str, author: AuthorInput) -> CreatePostResponse:
     post = db.posts.insert_one({
         'title': title,
         'content': content,
@@ -75,14 +75,7 @@ def create_post(title: str, content: str, author: AuthorInput) -> Post:
         }
     })
 
-    inserted_id = post.inserted_id
 
-    return Post(
-        id=inserted_id,
-        title=title,
-        content=content,
-        author=Author(
-            name=author.name,
-            email=author.email
-        )
+    return CreatePostResponse(
+        id=post.inserted_id
     )
