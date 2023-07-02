@@ -31,3 +31,11 @@ class PostsResponse:
 @strawberry.type
 class CreatePostResponse:
     id: str
+
+@strawberry.type
+class UpdatePostResponse:
+    id: str
+
+@strawberry.type
+class DeletePostResponse:
+    message: str = "Post deleted"

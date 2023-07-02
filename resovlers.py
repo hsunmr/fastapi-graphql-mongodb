@@ -1,5 +1,5 @@
 from db import db
-from models import Post, Author, PageMeta, PostsResponse, CreatePostResponse
+from models import Post, Author, PageMeta, PostsResponse, CreatePostResponse, UpdatePostResponse, DeletePostResponse
 from inputs import AuthorInput
 from bson.objectid import ObjectId
 from heplers import decode_user_cursor, encode_user_cursor
@@ -79,3 +79,28 @@ def create_post(title: str, content: str, author: AuthorInput) -> CreatePostResp
     return CreatePostResponse(
         id=post.inserted_id
     )
+
+def update_post(post_id: str, title: str, content: str, author: AuthorInput) -> UpdatePostResponse:
+    db.posts.update_one({
+        '_id': ObjectId(post_id)
+    }, {
+        '$set': {
+            'title': title,
+            'content': content,
+            'author': {
+                'name': author.name,
+                'email': author.email,
+            }
+        }
+    })
+
+    return UpdatePostResponse(
+        id=post_id
+    )
+
+def delete_post(post_id: str) -> DeletePostResponse:
+    db.posts.delete_one({
+        '_id': ObjectId(post_id)
+    })
+
+    return DeletePostResponse

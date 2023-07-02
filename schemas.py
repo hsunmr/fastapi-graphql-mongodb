@@ -1,9 +1,9 @@
 import typing
 import strawberry
 from strawberry.types import Info
-from models import Post, PostsResponse, CreatePostResponse
+from models import Post, PostsResponse, CreatePostResponse, UpdatePostResponse, DeletePostResponse
 from inputs import AuthorInput
-from resovlers import get_posts,get_post,create_post
+from resovlers import get_posts, get_post, create_post, update_post, delete_post
 
 
 
@@ -24,3 +24,9 @@ class Mutation:
     @strawberry.mutation
     def post(self, title: str, content: str, author: AuthorInput) -> CreatePostResponse:
         return create_post(title, content, author)
+    @strawberry.mutation
+    def update_post(self, post_id: str, title: str, content: str, author: AuthorInput) -> UpdatePostResponse:
+        return update_post(post_id, title, content, author)
+    @strawberry.mutation
+    def delete_post(self, post_id: str) -> DeletePostResponse:
+        return delete_post(post_id)
