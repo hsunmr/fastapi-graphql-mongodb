@@ -9,7 +9,7 @@ cd src
 cp .env.example .env
 
 # set env file
-# MONGO_HOST=127.0.0.1
+# MONGO_HOST=mongo
 # MONGO_PORT=27017
 # MONGO_USERNAME=root
 # MONGO_PASSWORD=root
