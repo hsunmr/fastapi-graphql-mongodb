@@ -1,7 +1,7 @@
 import typing
 import strawberry
 from strawberry.types import Info
-from models import Post
+from models import Post, PostsResponse
 from inputs import AuthorInput
 from resovlers import get_posts,get_post,create_post
 
@@ -9,10 +9,9 @@ from resovlers import get_posts,get_post,create_post
 
 @strawberry.type
 class Query:
-
     @strawberry.field
-    def posts(self, info: Info) -> typing.List[Post]:
-        posts = get_posts(info)
+    def posts(self, info: Info, limit: int, cursor: typing.Optional[str] = None) -> PostsResponse:
+        posts = get_posts(info, limit, cursor)
         return posts
 
     @strawberry.field

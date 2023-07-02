@@ -1,4 +1,5 @@
 import strawberry
+from typing import List, Optional
 
 @strawberry.type
 class Post:
@@ -11,3 +12,18 @@ class Post:
 class Author:
     name: str
     email: str
+
+@strawberry.type
+class PageMeta:
+    next_cursor: Optional[str] = strawberry.field(
+        description="The next cursor to continue with."
+    )
+
+@strawberry.type
+class PostsResponse:
+    posts: List[Post] = strawberry.field(
+        description="The list of posts."
+    )
+    page_meta: PageMeta = strawberry.field(
+        description="Metadata to aid in pagination."
+    )
